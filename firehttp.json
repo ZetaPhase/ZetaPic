@@ -1,0 +1,14 @@
+[
+  {
+    "EnableLogging": true,
+    "ListenAddress": "0.0.0.0",
+    "ListenPort": 4000,
+    "SingleInstance": false,
+    "VirtualHosts": [
+      {
+        "ServerName": "*",
+        "DocumentRoot": "www"
+      }
+    ]
+  }
+]

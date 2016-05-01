@@ -1,0 +1,1 @@
+mono FireHTTP_bin/FireHTTPServer.CLI.exe -singleinstance $IP:$PORT ZetaPic/www
