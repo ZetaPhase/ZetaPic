@@ -1,53 +1,125 @@
-import time
-import BaseHTTPServer
+"""
+LSC Server Beta
+
+Main Server Logic
+
+Base Version 2.4
+"""
+#2013
+
+PRODUCT_ID = 'ExaPhaser LSC Server v0.3.1' 
+
+from http.server import HTTPServer, SimpleHTTPRequestHandler
+import socket
+import webbrowser
+
+siteURL = ''
+from os import curdir, sep
 import os
-import cgi
 
-#HOST_NAME = os.getenv("IP", "0.0.0.0") # c9 Listen IP
-#PORT_NUMBER = int(os.getenv("PORT", 8080)) #c9 listen port
-HOST_NAME = "127.0.0.1"
-PORT_NUMBER = 80
-DOCUMENT_ROOT = "htdocs"
+from http.server import BaseHTTPRequestHandler
+from socketserver import ThreadingMixIn
 
-def convertFileToString(fileName):
-    with open(fileName, 'r') as myfile:
-        htmlString = myfile.read()
-    return htmlString
-
-class MyHandler(BaseHTTPServer.BaseHTTPRequestHandler):
-    def do_POST(self):
-        d = {}
-        form = cgi.FieldStorage(
-            fp=self.rfile,
-            headers=self.headers,
-            environ={"REQUEST_METHOD": "POST"}
-        )
-        for item in form.list:
-            d[item.name] = item.value
-        self.send_response(200)
-        self.send_header("Content-type", "text/html")
-        self.end_headers()
-        self.wfile.write(convertFileToString("test.html").format(**d))
-        #self.wfile.write("<html><body><p>Thank you for your submission, {fname} {lname}.</p></body></html>".format(**d))
+class OmniBeanHandler(BaseHTTPRequestHandler):
+    #GET Handler
+    def do_GET(self):
+        requestUrl = self.path
+        args = self.path.split('?')
+        self.path = args[0]
+        params = ''
+        if (len(args) == 2):
+            params = args[1]
+        indexpage = 'index.html'
+        reqURL = self.path[1:]
+        
+        print('REQUESTED ['+reqURL+']')
+        if self.path.endswith("/"):
+            self.path+=indexpage
+            print('ADDED /'+indexpage)
+        if (not os.path.exists(reqURL)):
+            print ('ERR 404 ['+reqURL+']')
+            #if (not os.path.exists('/index.html')):
+            #    self.path = "/index.htm"
+        try:
+            #Check the file extension required and set the right MIME
+            #type
+            sendReply = False
+            semdError = False
+            errorCode = -1
+            lsc = False
+            mimetype='text/plain'
+            if self.path.endswith(".html"):
+                mimetype='text/html'
+                sendReply = True
+                
+    
+            if self.path.endswith(".lsc"):
+                mimetype='text/html'
+                sendReply = True
+                lsc = True
+            if self.path.endswith(".jpg"):
+                mimetype='image/jpg'
+                sendReply = True
+            if self.path.endswith(".gif"):
+                mimetype='image/gif'
+                sendReply = True
+            if self.path.endswith(".js"):
+                mimetype='application/javascript'
+                sendReply = True
+            if self.path.endswith(".xap"):
+                mimetype='application/x-silverlight-app'
+                sendReply = True
+            if self.path.endswith(".xbap"):
+                mimetype='application/x-ms-xbap'
+                sendReply = True
+            if self.path.endswith(".xaml"):
+                mimetype='application/xaml+xml'
+                sendReply = True
+            if self.path.endswith(".css"):
+                mimetype='text/css'
+                sendReply = True
+            else:
+                sendError = True
+                errorCode='1104 Not Found'
+            if sendReply:
+		#Open the static file requested and send it
+                f = open(curdir + sep + self.path, 'rb')
+                self.send_response(200)
+                self.send_header('Content-type',mimetype)
+                self.end_headers()
+                content = f.read()
+                if (lsc):
+                    content = str.encode(LSC.parseToHTML(bytes.decode(content),params))
+                self.wfile.write(content)
+                f.close()
+            else:
+                if sendError:
+                    self.send_response(200)
+                    self.send_header('Content-type','text/html')
+                    self.end_headers()
+                    content = "Server rejected request.".encode()
+                    self.wfile.write(content)
+            return
+        except IOError:
+            self.send_error(404,'File Not Found: %s' % self.path)
 
         
-    def do_GET(self):
-        self.send_response(200)
-        self.send_header("Content-type", "text/html")
-        self.end_headers()
-        #self.wfile.write(convertFileToString("test.txt"))
-        self.wfile.write("<form action='demo_form.asp' method='post' id='form1'> First name: <input type='text' name='fname'><br>Last name: <input type='text' name='lname'><br><input type='submit' value='Submit'></form>")
-        print os.getcwd()
-        #print self.params
-        print self.path
-        print self.headers.getheaders('User-Agent')
 
-httpd = BaseHTTPServer.HTTPServer((HOST_NAME, PORT_NUMBER), MyHandler)
+class ThreadedHTTPServer(ThreadingMixIn, HTTPServer):
+  """Handle requests in a separate thread."""
 
-if __name__ == '__main__':
-    try:
-        httpd.serve_forever()
-    except KeyboardInterrupt:
-        pass
-    httpd.server_close()
+def start_lsc_server(HOST,PORT):
+    global siteURL
+    #HOST = '127.0.0.1'
+    httpd = HTTPServer((HOST, PORT), OmniBeanHandler)    
+    print('Starting',PRODUCT_ID)
+    url = 'http://'+HOST+':'+str(PORT)
+    print('Server running on:',url)
+    siteURL = url
+    print('Close the python window to stop server.')
+    #webbrowser.open_new(siteURL)
+    httpd.serve_forever()
 
+HOST_NAME = os.getenv("IP", "0.0.0.0") # c9 Listen IP
+PORT_NUMBER = int(os.getenv("PORT", 8080)) #c9 listen port
+start_lsc_server(HOST_NAME, PORT_NUMBER)
