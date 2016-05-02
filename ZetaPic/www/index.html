@@ -78,16 +78,48 @@ Although you can use them, for a more unique website, replace these images with 
 	<!-- Header -->
     <header>
         <div class="header-content">
-            <div class="header-content-inner", style="top:5px">
-                <h1>Dramatically Engage</h1>
-                <p>Objectively innovate empowered manufactured products whereas parallel platforms.</p>
-                <a href="#" class="btn btn-primary btn-lg">Engage Now</a>
+            <div class="header-content-inner">
+                <style>
+                    input[type=text], select {
+                        width: 50%;
+                        padding: 12px 20px;
+                        margin: 8px 0;
+                        display: inline-block;
+                        border: 1px solid #ccc;
+                        border-radius: 4px;
+                        box-sizing: border-box;
+                        color: black;
+                    }
+
+                    input[type=submit] {
+                        width: 50%;
+                        background-color: #4CAF50;
+                        color: white;
+                        padding: 14px 20px;
+                        margin: 8px 0;
+                        border: none;
+                        border-radius: 4px;
+                        cursor: pointer;
+                    }
+
+                    input[type=submit]:hover {
+                        background-color: #45a049;
+                    }
+                </style>
+                <form action='#content1' method="POST" id='form1'> <!-- action='demo_form.asp' method="POST"-->
+                    First name:<br>
+                    <input type='text' name='fname'>
+                    <br>
+                    Last name:<br>
+                    <input type='text' name='lname'>
+                    <br><br>
+                    <input type='submit' value='Submit'></form>
             </div>
         </div>
     </header>
 
 	<!-- Content 1 -->
-    <section class="content">
+    <section class="content" id = "content1">
         <div class="container">
             <div class="row">
                 <div class="col-sm-6">
