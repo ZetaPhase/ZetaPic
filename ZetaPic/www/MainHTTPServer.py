@@ -5,6 +5,10 @@ import string,cgi,time
 from os import curdir, sep
 import mimetypes
 from BaseHTTPServer import BaseHTTPRequestHandler, HTTPServer
+import skimage
+from skimage import novice
+from skimage import data
+from skimage.viewer import ImageViewer
 
 
 HOST_NAME = os.getenv("IP", "0.0.0.0") # c9 Listen IP
