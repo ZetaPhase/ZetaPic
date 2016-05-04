@@ -33,7 +33,7 @@ class Image:
         for row in range(0, self.height):
             for col in range(0, self.width):
                 for i in range(0, 3):
-                    image[row, col][i] = 255 - int(image[row, col][i])
+                    self.image[row, col][i] = 255 - int(self.image[row, col][i])
     
     def show(self):
         viewer = ImageViewer(self.image)
