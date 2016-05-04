@@ -17,7 +17,14 @@ def toGrayscale(image):
         for col in range(0, len(int(grapes.shape[1]))):
             average = image[row, col][0] + image[row, col][1] + image[row, col][2]
             image[row, col] = (average, average, average)
+    
             
+def toInverted(image):
+    for row in range(0, len(int(grapes.shape[0]))):
+        for col in range(0, len(int(grapes.shape[1]))):
+            for i in range(0, 3):
+                image[row, col][i] = 180 - int(image[row, col][i])
+
 def show(image):
     viewer = ImageViewer(image)
     viewer.show()
