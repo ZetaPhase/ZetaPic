@@ -29,6 +29,12 @@ class Image:
                 average = (self.image[row, col][0] + self.image[row, col][1] + self.image[row, col][2])/3.0
                 self.image[row, col] = (average, average, average)
     
+    def toInverted(self):
+        for row in range(0, self.height):
+            for col in range(0, self.width):
+                for i in range(0, 3):
+                    image[row, col][i] = 255 - int(image[row, col][i])
+    
     def show(self):
         viewer = ImageViewer(self.image)
         viewer.show()
@@ -44,7 +50,7 @@ def toInverted(image):
     for row in range(0, int(grapes.shape[0])):
         for col in range(0, int(grapes.shape[1])):
             for i in range(0, 3):
-                image[row, col][i] = 180 - int(image[row, col][i])
+                image[row, col][i] = 255 - int(image[row, col][i])
 
 def show(image):
     viewer = ImageViewer(image)
