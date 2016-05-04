@@ -38,23 +38,6 @@ class Image:
     def show(self):
         viewer = ImageViewer(self.image)
         viewer.show()
-
-def toGrayscale(image):
-    for row in range(0, int(grapes.shape[0])):
-        for col in range(0, int(grapes.shape[1])):
-            average = image[row, col][0] + image[row, col][1] + image[row, col][2]
-            image[row, col] = (average, average, average)
-    
-            
-def toInverted(image):
-    for row in range(0, int(grapes.shape[0])):
-        for col in range(0, int(grapes.shape[1])):
-            for i in range(0, 3):
-                image[row, col][i] = 255 - int(image[row, col][i])
-
-def show(image):
-    viewer = ImageViewer(image)
-    viewer.show()
     
 if __name__ == "__main__":
     filename = os.path.join(skimage.data_dir, 'grapes.jpg')
