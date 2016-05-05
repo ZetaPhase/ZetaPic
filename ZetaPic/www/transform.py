@@ -34,10 +34,17 @@ class Image:
             for col in range(0, self.width):
                 for i in range(0, 3):
                     self.image[row, col][i] = 255 - int(self.image[row, col][i])
+
+    def toBlur(self):
+        pass
+    
+    def toTint(self):
+        pass
     
     def show(self):
         viewer = ImageViewer(self.image)
         viewer.show()
+        
     
 if __name__ == "__main__":
     filename = os.path.join(skimage.data_dir, 'grapes.jpg')
