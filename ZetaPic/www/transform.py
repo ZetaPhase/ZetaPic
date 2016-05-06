@@ -36,10 +36,22 @@ class Image:
                     self.image[row, col][i] = 255 - int(self.image[row, col][i])
 
     def toBlur(self):
-        pass
+        pass        
     
-    def toTint(self):
-        pass
+    def toTint(self, r, g, b):
+        for row in range(0, self.height):
+            for col in range(0, self.width):
+                pixel = self.image[row, col]
+                if pixel[0] <= 50:                
+                    print '______________'
+                    print pixel[0]
+                    print pixel[0]+r
+                self.image[row, col][0] = min(pixel[0]+r, 255)
+                self.image[row, col][0] = max(pixel[0]+r, 0)
+                self.image[row, col][1] = min(pixel[1]+g, 255)
+                self.image[row, col][1] = max(pixel[1]+g, 0)
+                self.image[row, col][2] = min(pixel[2]+b, 255)
+                self.image[row, col][2] = max(pixel[2]+b, 0)
     
     def show(self):
         viewer = ImageViewer(self.image)
