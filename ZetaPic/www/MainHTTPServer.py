@@ -1,4 +1,4 @@
-#import time
+#imports
 import BaseHTTPServer
 import os
 import string,cgi,time
@@ -18,17 +18,17 @@ PORT_NUMBER = int(os.getenv("PORT", 8080)) #c9 listen port
 #PORT_NUMBER = 80
 DOCUMENT_ROOT = "htdocs"
 
-def convertFileToString(fileName):
+def convertFileToString(fileName): #convert html file to string
     with open(fileName, 'r') as myfile:
         htmlString = myfile.read()
     return htmlString
 
 class LSC:
-    def parseToHTML(lsc,args):
+    def parseToHTML(lsc,args): #parse to HTML
         html = LSCParser.LanguageService(lsc,args)
         return html
 
-class MyHandler(BaseHTTPServer.BaseHTTPRequestHandler):
+class MyHandler(BaseHTTPServer.BaseHTTPRequestHandler): # set up handler
     def do_POST(self):
         d = {}
         form = cgi.FieldStorage(
