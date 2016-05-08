@@ -30,10 +30,9 @@ class Image:
                 self.image[row, col] = (average, average, average)
     
     def toInverted(self):
-        for row in range(0, self.height):
-            for col in range(0, self.width):
-                for i in range(0, 3):
-                    self.image[row, col][i] = 255 - int(self.image[row, col][i])
+        tmp = np.array([255, 255, 255])
+        tmp = tmp.astype('uint8')
+        self.image = tmp - self.image
 
     def toBlur(self):
         pass        
