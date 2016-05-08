@@ -59,7 +59,7 @@ class Image:
         
     
 if __name__ == "__main__":
-    filename = os.path.join(skimage.data_dir, 'grapes.jpg')
+    filename = os.path.join('C:\Users\Dave Ho\ZetaPhase\ZetaPic\ZetaPic\www\samplePics\grapes.jpg')
     grape = io.imread(filename)
     grapes = Image(grape)
     
