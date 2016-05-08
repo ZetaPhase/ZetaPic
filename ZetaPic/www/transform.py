@@ -24,10 +24,10 @@ class Image:
         self.image = np.copy(self.original)
         
     def toGrayScale(self):
-        for row in range(0, self.height):
-            for col in range(0, self.width):
-                average = (self.image[row, col][0] + self.image[row, col][1] + self.image[row, col][2])/3.0
-                self.image[row, col] = (average, average, average)
+        layer = np.mean(self.image.astype('int32'), axis=2)
+        self.image = np.repeat(layer, 3, axis=1)
+        self.image.shape = (1067L, 1600L, 3L)
+        self.image = self.image.astype('uint8')
     
     def toInverted(self):
         tmp = np.array([255, 255, 255])
