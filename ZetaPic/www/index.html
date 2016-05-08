@@ -90,9 +90,20 @@ Although you can use them, for a more unique website, replace these images with 
                         box-sizing: border-box;
                         color: black;
                     }
-
+                    
+                    select {
+                        width: 20%;
+                        background-color: white;
+                        color: black;
+                        padding: 14px 20px;
+                        margin: 8px 0;
+                        border: none;
+                        border-radius: 4px;
+                        cursor: pointer;
+                    }
+                    
                     input[type=submit] {
-                        width: 50%;
+                        width: 20%;
                         background-color: #4CAF50;
                         color: white;
                         padding: 14px 20px;
@@ -107,13 +118,17 @@ Although you can use them, for a more unique website, replace these images with 
                     }
                 </style>
                 <form action='#content1' method="POST" id='form1'> <!-- action='demo_form.asp' method="POST"-->
-                    First name:<br>
-                    <input type='text' name='fname'>
+                    Image URL:<br>
+                    <input type='text' name='imgurl'>
                     <br>
-                    Last name:<br>
-                    <input type='text' name='lname'>
+                    <select name="operation">
+                    <option value="grayscale">GrayScale</option>
+                    <option value="tint">Tint</option>
+                    <option value="invert">Invert</option>
+                    </select>
                     <br><br>
-                    <input type='submit' value='Submit'></form>
+                    <input type='submit' value='Submit'>
+                </form>
             </div>
         </div>
     </header>
