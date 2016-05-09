@@ -17,6 +17,7 @@ from PIL import Image
 class Picture:
     def __init__(self, image):
         self.image = np.copy(image)
+        self.shape = self.image.shape
         self.original = np.copy(image)
         self.width = int(image.shape[1])
         self.height = int(image.shape[0])
@@ -27,7 +28,7 @@ class Picture:
     def toGrayScale(self):
         layer = np.mean(self.image.astype('int32'), axis=2)
         self.image = np.repeat(layer, 3, axis=1)
-        self.image.shape = (1067L, 1600L, 3L)
+        self.image.shape = self.shape
         self.image = self.image.astype('uint8')
     
     def toInverted(self):
