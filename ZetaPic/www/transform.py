@@ -12,8 +12,9 @@ from skimage import data
 from skimage import novice
 from skimage import io
 from skimage.viewer import ImageViewer
+from PIL import Image
 
-class Image:
+class Picture:
     def __init__(self, image):
         self.image = np.copy(image)
         self.original = np.copy(image)
@@ -50,5 +51,5 @@ class Image:
 if __name__ == "__main__":
     filename = os.path.join('C:\Users\Dave Ho\ZetaPhase\ZetaPic\ZetaPic\www\samplePics\grapes.jpg')
     grape = io.imread(filename)
-    grapes = Image(grape)
+    grapes = Picture(grape)
     

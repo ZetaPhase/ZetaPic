@@ -11,6 +11,7 @@ from skimage import data
 from skimage.viewer import ImageViewer
 from skimage import io
 import transform
+from PIL import Image
 
 HOST_NAME = os.getenv("IP", "0.0.0.0") # c9 Listen IP
 PORT_NUMBER = int(os.getenv("PORT", 8080)) #c9 listen port
@@ -44,9 +45,17 @@ class MyHandler(BaseHTTPServer.BaseHTTPRequestHandler): # set up handler
         self.end_headers()
         self.wfile.write(convertFileToString("test.html").format(**d))
         copyPicture = io.imread(d['imgurl'])
-        picture = Image(copyPicture)
-        picture.toGrayScale()
-        
+        img = transform.Picture(copyPicture)
+        if d['operation'] == 'grayscale':
+            img.toGrayScale()
+        elif d['operation'] == 'tint':
+            img.toTint(0, -100, -100)
+        elif d['operation'] == 'invert':
+            img.toInverted()
+        png = Image.fromarray(img.image, 'RGB')
+        png.save("C:\zetaImg.png")
+        self.wfile.write('<br>')
+        self.wfile.write("<img src='C:\zetaImg.png' alt=''/>")
         '''
         d = {}
         form = cgi.FieldStorage(
