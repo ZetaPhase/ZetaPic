@@ -53,9 +53,9 @@ class MyHandler(BaseHTTPServer.BaseHTTPRequestHandler): # set up handler
         elif d['operation'] == 'invert':
             img.toInverted()
         png = Image.fromarray(img.image, 'RGB')
-        png.save("C:\zetaImg.png")
+        png.save("zetaImg.png")
         self.wfile.write('<br>')
-        self.wfile.write("<img src='C:\zetaImg.png' alt=''/>")
+        self.wfile.write("<img src='zetaImg.png' alt=''/>")
         '''
         d = {}
         form = cgi.FieldStorage(
