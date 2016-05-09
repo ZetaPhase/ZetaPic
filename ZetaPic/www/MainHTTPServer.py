@@ -43,6 +43,10 @@ class MyHandler(BaseHTTPServer.BaseHTTPRequestHandler): # set up handler
         self.send_header("Content-type", "text/html")
         self.end_headers()
         self.wfile.write(convertFileToString("test.html").format(**d))
+        copyPicture = io.imread(d['imgurl'])
+        picture = Image(copyPicture)
+        picture.toGrayScale()
+        
         '''
         d = {}
         form = cgi.FieldStorage(
