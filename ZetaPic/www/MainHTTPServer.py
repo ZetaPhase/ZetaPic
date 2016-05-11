@@ -14,7 +14,7 @@ import transform
 from PIL import Image
 
 HOST_NAME = os.getenv("IP", "0.0.0.0") # c9 Listen IP
-#HOST_NAME = os.getenv("IP", "192.168.1.68")
+#HOST_NAME = os.getenv("IP", "192.168.1.68") #my computer IP
 PORT_NUMBER = int(os.getenv("PORT", 8080)) #c9 listen port
 #HOST_NAME = "127.0.0.1"
 #PORT_NUMBER = 80
