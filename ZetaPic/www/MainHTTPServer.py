@@ -53,6 +53,8 @@ class MyHandler(BaseHTTPServer.BaseHTTPRequestHandler): # set up handler
             img.toTint(0, -100, -100)
         elif d['operation'] == 'invert':
             img.toInverted()
+        elif d['operation'] == 'blur':
+            img.toBlur(7)
         png = Image.fromarray(img.image, 'RGB')
         png.save("zetaImg.png")
         self.wfile.write('<br>')
