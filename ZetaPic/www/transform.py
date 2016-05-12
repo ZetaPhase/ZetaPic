@@ -13,6 +13,8 @@ from skimage import novice
 from skimage import io
 from skimage.viewer import ImageViewer
 from PIL import Image
+import scipy.misc
+from scipy import ndimage
 
 class Picture:
     def __init__(self, image):
@@ -36,8 +38,9 @@ class Picture:
         tmp = tmp.astype('uint8')
         self.image = tmp - self.image
 
-    def toBlur(self):
-        pass        
+    def toBlur(self, scale):
+        result = ndimage.gaussian_filter(self.image, sigma=scale)
+        self.image = result
     
     def toTint(self, r, g, b):
         self.image = self.image.astype('int32') + np.array([r, g, b]).astype('int32')
