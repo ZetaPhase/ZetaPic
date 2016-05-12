@@ -59,21 +59,6 @@ class MyHandler(BaseHTTPServer.BaseHTTPRequestHandler): # set up handler
         png.save("zetaImg.png")
         self.wfile.write('<br>')
         self.wfile.write("<img src='zetaImg.png' alt=''/>")
-        '''
-        d = {}
-        form = cgi.FieldStorage(
-            fp=self.rfile,
-            headers=self.headers,
-            environ={"REQUEST_METHOD": "POST"}
-        )
-        for item in form.list:
-            d[item.name] = item.value
-        self.send_response(200)
-        self.send_header("Content-type", "text/html")
-        self.end_headers()
-        self.wfile.write(convertFileToString("test.html").format(**d))
-        #self.wfile.write("<html><body><p>Thank you for your submission, {fname} {lname}.</p></body></html>".format(**d))
-        '''
         
     def do_GET(self):
         args = self.path.split('?')
