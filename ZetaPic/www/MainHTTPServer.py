@@ -59,6 +59,8 @@ class MyHandler(BaseHTTPServer.BaseHTTPRequestHandler): # set up handler
         png.save("zetaImg.png")
         self.wfile.write('<br>')
         self.wfile.write("<img src='zetaImg.png' alt=''/>")
+        self.wfile.write('<br>')
+        self.wfile.write("<a href=''>Return Home</a>")
         
     def do_GET(self):
         args = self.path.split('?')
