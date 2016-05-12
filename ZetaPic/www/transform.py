@@ -39,7 +39,7 @@ class Picture:
         self.image = tmp - self.image
 
     def toBlur(self, scale):
-        result = ndimage.gaussian_filter(self.image, sigma=scale)
+        result = ndimage.uniform_filter(self.image, size=(scale, scale, 1))
         self.image = result
     
     def toTint(self, r, g, b):
